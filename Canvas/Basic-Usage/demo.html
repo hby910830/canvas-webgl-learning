@@ -1,0 +1,63 @@
+<!--
+<canvas> 看起来和 <img> 元素很相像，唯一的不同就是它并没有 src 和 alt 属性。实际上，<canvas> 标签只有两个属性—— width和height。
+这些都是可选的，并且同样利用 DOM properties 来设置。当没有设置宽度和高度的时候，canvas会初始化宽度为300像素和高度为150像素。
+该元素可以使用CSS来定义大小，但在绘制时图像会伸缩以适应它的框架尺寸：如果CSS的尺寸与初始画布的比例不一致，它会出现扭曲。
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Basic Usage</title>
+  <style type="text/css">
+    canvas { border: 1px solid black; }
+  </style>
+</head>
+<body onload="draw()">
+<canvas id="tutorial" width="150" height="150">
+  <!--<   //替换内容
+  canvas>元素与<img>标签的不同之处在于，就像<video>，<audio>，或者 <picture>元素一样，很容易定义一些替代内容。
+  由于某些较老的浏览器（尤其是IE9之前的IE浏览器）或者文本浏览器不支持HTML元素"canvas"，在这些浏览器上你应该总是能展示替代内容。
+  这非常简单：我们只是在<canvas>标签中提供了替换内容。不支持<canvas>的浏览器将会忽略容器并在其中渲染后备内容。
+  而支持<canvas>的浏览器将会忽略在容器中包含的内容，并且只是正常渲染canvas。
+  -->
+  current tutorial canvas size: 150 * 150
+</canvas>
+<!--举个例子，我们可以提供对canvas内容的文字描述或者是提供动态生成内容相对应的静态图片，如下所示：-->
+<canvas id="stockGraph" width="150" height="150">
+  current stock price: $3.15 +0.15
+</canvas>
+
+<canvas id="clock" width="150" height="150">
+  <img src="" width="150" height="150" alt=""/>
+</canvas>
+<!--
+注意: 如果你绘制出来的图像是扭曲的, 尝试用width和height属性为<canvas>明确规定宽高，而不是使用CSS。
+-->
+
+<script>
+  const draw = () => {
+	/*渲染上下文（The rendering context)
+    *canvas起初是空白的。为了展示，首先脚本需要找到渲染上下文，然后在它的上面绘制。
+    *<canvas> 元素有一个叫做 getContext() 的方法，这个方法是用来获得渲染上下文和它的绘画功能。
+    *getContext()只有一个参数，上下文的格式。对于2D图像而言，可以使用 CanvasRenderingContext2D。
+    */
+	const canvas = document.getElementById('tutorial')
+	/*检查支持性
+    *替换内容是用于在不支持 <canvas> 标签的浏览器中展示的。
+    * 通过简单的测试getContext()方法的存在，脚本可以检查编程支持性。
+    * 上面的代码片段现在变成了这个样子：
+    */
+	if (canvas.getContext) {
+	  let context = canvas.getContext('2d')
+	  // drawing code here
+	  context.fillStyle = 'rgb(200,0,0)'
+	  context.fillRect(10, 10, 55, 50)
+	  context.fillStyle = "rgba(0, 0, 200, .5)";
+	  context.fillRect(30, 30, 55, 50);
+	} else {
+	  // canvas-unsupported code here
+	}
+  }
+</script>
+</body>
+</html>
