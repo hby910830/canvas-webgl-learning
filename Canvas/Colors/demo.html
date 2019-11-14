@@ -32,15 +32,15 @@ color 可以是表示 CSS 颜色值的字符串，渐变对象或者图案对象
 	  }
 	}
 	//这次用到的是 strokeStyle 属性，画的不是方格，而是用 arc 方法来画圆。
-	// const contextStrokeStyle = document.getElementById('strokeStyle').getContext('2d');
-	// for (let i = 0; i < 6; i++) {
-	//   for (let j = 0; j < 6; j++) {
-	// 	contextStrokeStyle.strokeStyle = `rgb(0,${Math.floor(255 - 42.5 * i)},${Math.floor(255 - 42.5 * j)}`;
-	// 	contextStrokeStyle.beginPath();
-	// 	contextStrokeStyle.arc(12.5 + j * 25, 12.5 + i * 25, 10, 0, Math.PI * 2, true);
-	// 	contextStrokeStyle.stroke();
-	//   }
-	// }
+	const contextStrokeStyle = document.getElementById('strokeStyle').getContext('2d');
+	for (let i = 0; i < 6; i++) {
+	  for (let j = 0; j < 6; j++) {
+		contextStrokeStyle.strokeStyle = `rgb(0,${Math.floor(255 - 42.5 * i)},${Math.floor(255 - 42.5 * j)}`;
+		contextStrokeStyle.beginPath();
+		contextStrokeStyle.arc(12.5 + j * 25, 12.5 + i * 25, 10, 0, Math.PI * 2, true);
+		contextStrokeStyle.stroke();
+	  }
+	}
   }
 </script>
 </body>
