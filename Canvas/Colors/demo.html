@@ -1,0 +1,47 @@
+<!--
+色彩 Colors
+如果我们想要给图形上色，有两个重要的属性可以做到：fillStyle 和 strokeStyle。
+
+fillStyle = color 设置图形的填充颜色。
+strokeStyle = color 设置图形轮廓的颜色。
+
+color 可以是表示 CSS 颜色值的字符串，渐变对象或者图案对象。默认情况下，线条和填充颜色都是黑色（CSS 颜色值 #000000）。
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Colors</title>
+  <style type="text/css">
+    canvas { border: 1px solid black; }
+  </style>
+</head>
+<body onload="draw()">
+<canvas id="fillStyle" width="150" height="150"></canvas>
+<canvas id="strokeStyle" width="150" height="150"></canvas>
+
+<script>
+  const draw = () => {
+	//用两层 for 循环来绘制方格阵列，每个方格不同的颜色
+	const canvasFillStyle = document.getElementById('fillStyle')
+	let contextFillStyle = canvasFillStyle.getContext('2d')
+	for (let i = 0; i < 6; i++) {
+	  for (let j = 0; j < 6; j++) {
+		contextFillStyle.fillStyle = `rgb(${Math.floor(255 - 42.5 * i)}, ${Math.floor(255 - 42.5 * j)}, 0)`
+		contextFillStyle.fillRect(j * 25, i * 25, 25, 25);
+	  }
+	}
+	//这次用到的是 strokeStyle 属性，画的不是方格，而是用 arc 方法来画圆。
+	// const contextStrokeStyle = document.getElementById('strokeStyle').getContext('2d');
+	// for (let i = 0; i < 6; i++) {
+	//   for (let j = 0; j < 6; j++) {
+	// 	contextStrokeStyle.strokeStyle = `rgb(0,${Math.floor(255 - 42.5 * i)},${Math.floor(255 - 42.5 * j)}`;
+	// 	contextStrokeStyle.beginPath();
+	// 	contextStrokeStyle.arc(12.5 + j * 25, 12.5 + i * 25, 10, 0, Math.PI * 2, true);
+	// 	contextStrokeStyle.stroke();
+	//   }
+	// }
+  }
+</script>
+</body>
+</html>
