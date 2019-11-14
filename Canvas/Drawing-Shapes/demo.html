@@ -1,0 +1,79 @@
+<!--
+栅格
+在我们开始画图之前，我们需要了解一下画布栅格（canvas grid）以及坐标空间。
+通常来说网格中的一个单元相当于canvas元素中的一像素。栅格的起点为左上角（坐标为（0,0））。
+所有元素的位置都相对于原点定位。在课程的最后我们会平移原点到不同的坐标上，旋转网格以及缩放。
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Drawing Shapes</title>
+  <style type="text/css">
+    canvas { border: 1px solid black; }
+  </style>
+</head>
+<body onload="draw()">
+<canvas id="draw-rect" width="150" height="150"></canvas>
+<canvas id="draw-triangle" width="150" height="150"></canvas>
+<canvas id="draw-face" width="150" height="150"></canvas>
+
+<script>
+  /*不同于 SVG，<canvas> 只支持两种形式的图形绘制：矩形和路径（由一系列点连成的线段）。
+  * 所有其他类型的图形都是通过一条或者多条路径组合而成的。
+  */
+  const draw = () => {
+	// canvas提供了三种方法绘制矩形：
+	// 1.fillRect(x, y, width, height) 绘制一个填充的矩形
+	// 2.strokeRect(x, y, width, height) 绘制一个矩形的边框
+	// 3.clearRect(x, y, width, height) 清除指定矩形区域，让清除部分完全透明。
+	const canvasRect = document.getElementById('draw-rect')
+	let contextRect = canvasRect.getContext('2d')
+	//fillRect()函数绘制了一个边长为100px的黑色正方形。
+	contextRect.fillRect(25, 25, 100, 100)
+    //clearRect()函数从正方形的中心开始擦除了一个60*60px的正方形，
+	contextRect.clearRect(45, 45, 60, 60)
+    //接着strokeRect()在清除区域内生成一个50*50的正方形边框。
+	contextRect.strokeRect(50, 50, 50, 50);
+
+    // 图形的基本元素是路径。路径是通过不同颜色和宽度的线段或曲线相连形成的不同形状的点的集合。
+	// 一个路径，甚至一个子路径，都是闭合的。使用路径绘制图形需要一些额外的步骤。
+    // 首先，你需要创建路径起始点。然后你使用画图命令去画出路径。
+    // 之后你把路径封闭。
+    // 一旦路径生成，你就能通过描边或填充路径区域来渲染图形。
+
+    /* api:
+    * beginPath(): 新建一条路径，生成之后，图形绘制命令被指向到路径上生成路径。
+                   每次这个方法调用之后，列表清空重置，然后我们就可以重新绘制新的图形。
+                   注意：当前路径为空，即调用beginPath()之后，或者canvas刚建的时候，
+                   第一条路径构造命令通常被视为是moveTo（），无论实际上是什么。
+                   出于这个原因，你几乎总是要在设置路径之后专门指定你的起始位置。
+    *
+    * closePath(): 闭合路径之后图形绘制命令又重新指向到上下文中。不是必需的。
+                   这个方法会通过绘制一条从当前点到开始点的直线来闭合图形。
+                   如果图形是已经闭合了的，即当前点为开始点，该函数什么也不做。
+    *
+    * stroke(): 通过线条来绘制图形轮廓。
+    *
+    * fill(): 通过填充路径的内容区域生成实心的图形。
+              注意：当你调用fill()函数时，所有没有闭合的形状都会自动闭合，所以你不需要调用closePath()函数。
+              但是调用stroke()时不会自动闭合。
+    * */
+    // const canvasTriangle = document.getElementById('draw-triangle')
+    // let contextTriangle = canvasTriangle.getContext('2d')
+	// contextTriangle.beginPath()
+	// //移动笔触, moveTo(x, y)将笔触移动到指定的坐标x以及y上。
+    // //当canvas初始化或者beginPath()调用后，你通常会使用moveTo()函数设置起点。
+	// contextTriangle.moveTo(75,50)
+	// contextTriangle.lineTo(100,75)
+	// contextTriangle.lineTo(100,25)
+	// contextTriangle.fill()
+
+    // const canvasFace = document.getElementById('draw-face')
+    // let contextFace = canvasFace.getContext('2d')
+	// contextFace.beginPath()
+	// contextFace.arc(75,75,50,0,Math.PI*2,true)  //绘制
+  }
+</script>
+</body>
+</html>
