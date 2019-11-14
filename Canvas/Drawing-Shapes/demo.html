@@ -59,6 +59,7 @@
               注意：当你调用fill()函数时，所有没有闭合的形状都会自动闭合，所以你不需要调用closePath()函数。
               但是调用stroke()时不会自动闭合。
     * */
+    //三角形
     const canvasTriangle = document.getElementById('draw-triangle')
     let contextTriangle = canvasTriangle.getContext('2d')
 	contextTriangle.beginPath()
@@ -67,12 +68,27 @@
 	contextTriangle.moveTo(75,50)
 	contextTriangle.lineTo(100,75)
 	contextTriangle.lineTo(100,25)
-	contextTriangle.fill()
+	contextTriangle.fill()  //通过填充路径的内容区域生成实心的图形
 
-    // const canvasFace = document.getElementById('draw-face')
-    // let contextFace = canvasFace.getContext('2d')
-	// contextFace.beginPath()
-	// contextFace.arc(75,75,50,0,Math.PI*2,true)  //绘制
+    //笑脸
+    const canvasFace = document.getElementById('draw-face')
+    let contextFace = canvasFace.getContext('2d')
+	contextFace.beginPath()
+    //绘制圆弧或者圆，使用arc()方法。
+    /* arc(x, y, radius, startAngle, endAngle, anticlockwise)
+     * 画一个以（x,y）为圆心的,
+     * 以radius为半径的圆弧（圆），都是以x轴为基准。
+     * 从startAngle开始到endAngle结束，
+     * 按照anticlockwise给定的方向（默认为true顺时针）来生成。
+    */
+	contextFace.arc(75,75,50,0,Math.PI*2,true)  //绘制
+    contextFace.moveTo(110,75)
+	contextFace.arc(75,75,35,0,Math.PI,false)  //口(顺时针)
+	contextFace.moveTo(65,65)
+	contextFace.arc(60,65,5,0,Math.PI*2,true)  //左眼
+	contextFace.moveTo(95,65)
+    contextFace.arc(90,65,5,0,Math.PI*2,true)  //右眼
+	contextFace.stroke()  //通过线条来绘制图形轮廓
   }
 </script>
 </body>
