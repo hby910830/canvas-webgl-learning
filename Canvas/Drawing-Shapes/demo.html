@@ -17,6 +17,7 @@
 <canvas id="draw-rect" width="150" height="150"></canvas>
 <canvas id="draw-triangle" width="150" height="150"></canvas>
 <canvas id="draw-face" width="150" height="150"></canvas>
+<canvas id="draw-path2d" width="150" height="150"></canvas>
 
 <script>
   /*不同于 SVG，<canvas> 只支持两种形式的图形绘制：矩形和路径（由一系列点连成的线段）。
@@ -31,18 +32,16 @@
 	let contextRect = canvasRect.getContext('2d')
 	//fillRect()函数绘制了一个边长为100px的黑色正方形。
 	contextRect.fillRect(25, 25, 100, 100)
-    //clearRect()函数从正方形的中心开始擦除了一个60*60px的正方形，
+	//clearRect()函数从正方形的中心开始擦除了一个60*60px的正方形，
 	contextRect.clearRect(45, 45, 60, 60)
-    //接着strokeRect()在清除区域内生成一个50*50的正方形边框。
+	//接着strokeRect()在清除区域内生成一个50*50的正方形边框。
 	contextRect.strokeRect(50, 50, 50, 50);
-
-    // 图形的基本元素是路径。路径是通过不同颜色和宽度的线段或曲线相连形成的不同形状的点的集合。
+	// 图形的基本元素是路径。路径是通过不同颜色和宽度的线段或曲线相连形成的不同形状的点的集合。
 	// 一个路径，甚至一个子路径，都是闭合的。使用路径绘制图形需要一些额外的步骤。
-    // 首先，你需要创建路径起始点。然后你使用画图命令去画出路径。
-    // 之后你把路径封闭。
-    // 一旦路径生成，你就能通过描边或填充路径区域来渲染图形。
-
-    /* api:
+	// 首先，你需要创建路径起始点。然后你使用画图命令去画出路径。
+	// 之后你把路径封闭。
+	// 一旦路径生成，你就能通过描边或填充路径区域来渲染图形。
+	/* api:
     * beginPath(): 新建一条路径，生成之后，图形绘制命令被指向到路径上生成路径。
                    每次这个方法调用之后，列表清空重置，然后我们就可以重新绘制新的图形。
                    注意：当前路径为空，即调用beginPath()之后，或者canvas刚建的时候，
@@ -59,36 +58,50 @@
               注意：当你调用fill()函数时，所有没有闭合的形状都会自动闭合，所以你不需要调用closePath()函数。
               但是调用stroke()时不会自动闭合。
     * */
-    //三角形
-    const canvasTriangle = document.getElementById('draw-triangle')
-    let contextTriangle = canvasTriangle.getContext('2d')
+	//三角形
+	const canvasTriangle = document.getElementById('draw-triangle')
+	let contextTriangle = canvasTriangle.getContext('2d')
 	contextTriangle.beginPath()
 	//移动笔触, moveTo(x, y)将笔触移动到指定的坐标x以及y上。
-    //当canvas初始化或者beginPath()调用后，你通常会使用moveTo()函数设置起点。
-	contextTriangle.moveTo(75,50)
-	contextTriangle.lineTo(100,75)
-	contextTriangle.lineTo(100,25)
+	//当canvas初始化或者beginPath()调用后，你通常会使用moveTo()函数设置起点。
+	contextTriangle.moveTo(75, 50)
+	contextTriangle.lineTo(100, 75)
+	contextTriangle.lineTo(100, 25)
 	contextTriangle.fill()  //通过填充路径的内容区域生成实心的图形
-
-    //笑脸
-    const canvasFace = document.getElementById('draw-face')
-    let contextFace = canvasFace.getContext('2d')
+	//笑脸
+	const canvasFace = document.getElementById('draw-face')
+	let contextFace = canvasFace.getContext('2d')
 	contextFace.beginPath()
-    //绘制圆弧或者圆，使用arc()方法。
-    /* arc(x, y, radius, startAngle, endAngle, anticlockwise)
+	//绘制圆弧或者圆，使用arc()方法。
+	/* arc(x, y, radius, startAngle, endAngle, anticlockwise)
      * 画一个以（x,y）为圆心的,
      * 以radius为半径的圆弧（圆），都是以x轴为基准。
      * 从startAngle开始到endAngle结束，
      * 按照anticlockwise给定的方向（默认为true顺时针）来生成。
     */
-	contextFace.arc(75,75,50,0,Math.PI*2,true)  //绘制
-    contextFace.moveTo(110,75)
-	contextFace.arc(75,75,35,0,Math.PI,false)  //口(顺时针)
-	contextFace.moveTo(65,65)
-	contextFace.arc(60,65,5,0,Math.PI*2,true)  //左眼
-	contextFace.moveTo(95,65)
-    contextFace.arc(90,65,5,0,Math.PI*2,true)  //右眼
+	contextFace.arc(75, 75, 50, 0, Math.PI * 2, true)  //绘制
+	contextFace.moveTo(110, 75)
+	contextFace.arc(75, 75, 35, 0, Math.PI, false)  //口(顺时针)
+	contextFace.moveTo(65, 65)
+	contextFace.arc(60, 65, 5, 0, Math.PI * 2, true)  //左眼
+	contextFace.moveTo(95, 65)
+	contextFace.arc(90, 65, 5, 0, Math.PI * 2, true)  //右眼
 	contextFace.stroke()  //通过线条来绘制图形轮廓
+	/*Path2D对象*/
+	// 为了简化代码和提高性能，Path2D对象已可以在较新版本的浏览器中使用，用来缓存或记录绘画命令，这样你将能快速地回顾路径。
+	// Path2D()会返回一个新初始化的Path2D对象（可能将某一个路径作为变量——创建一个它的副本，或者将一个包含SVG path数据的字符串作为变量）。
+	// new Path2D();     // 空的Path对象
+	// new Path2D(path); // 克隆Path对象
+	// new Path2D(d);    // 从SVG建立Path对象
+	const canvasPath2D = document.getElementById('draw-path2d')
+	let contextPath2D = canvasPath2D.getContext('2d')
+	let rectangle = new Path2D()
+	rectangle.rect(10, 10, 50, 50)
+	const circle = new Path2D()
+	circle.moveTo(125, 35)
+	circle.arc(100, 35, 25, 0, 2 * Math.PI, true);
+	contextPath2D.stroke(rectangle)
+	contextPath2D.fill(circle)
   }
 </script>
 </body>
