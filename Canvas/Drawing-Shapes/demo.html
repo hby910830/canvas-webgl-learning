@@ -59,15 +59,15 @@
               注意：当你调用fill()函数时，所有没有闭合的形状都会自动闭合，所以你不需要调用closePath()函数。
               但是调用stroke()时不会自动闭合。
     * */
-    // const canvasTriangle = document.getElementById('draw-triangle')
-    // let contextTriangle = canvasTriangle.getContext('2d')
-	// contextTriangle.beginPath()
-	// //移动笔触, moveTo(x, y)将笔触移动到指定的坐标x以及y上。
-    // //当canvas初始化或者beginPath()调用后，你通常会使用moveTo()函数设置起点。
-	// contextTriangle.moveTo(75,50)
-	// contextTriangle.lineTo(100,75)
-	// contextTriangle.lineTo(100,25)
-	// contextTriangle.fill()
+    const canvasTriangle = document.getElementById('draw-triangle')
+    let contextTriangle = canvasTriangle.getContext('2d')
+	contextTriangle.beginPath()
+	//移动笔触, moveTo(x, y)将笔触移动到指定的坐标x以及y上。
+    //当canvas初始化或者beginPath()调用后，你通常会使用moveTo()函数设置起点。
+	contextTriangle.moveTo(75,50)
+	contextTriangle.lineTo(100,75)
+	contextTriangle.lineTo(100,25)
+	contextTriangle.fill()
 
     // const canvasFace = document.getElementById('draw-face')
     // let contextFace = canvasFace.getContext('2d')
