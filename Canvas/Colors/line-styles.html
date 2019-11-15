@@ -19,15 +19,37 @@ lineDashOffset = value 设置虚线样式的起始偏移量。
 <canvas id="lineCap" width="150" height="150"></canvas>
 <script>
   const draw = () => {
-    const canvasLineWidth = document.getElementById('lineWidth')
-    const contextLineWidth = canvasLineWidth.getContext('2d')
-	for (let i = 0; i < 10; i++){
+	const canvasLineWidth = document.getElementById('lineWidth')
+	const contextLineWidth = canvasLineWidth.getContext('2d')
+	for (let i = 0; i < 10; i++) {
 	  //这个属性设置当前绘线的粗细。属性值必须为正数。默认值是1.0。
-	  contextLineWidth.lineWidth = 1+i;
+	  contextLineWidth.lineWidth = 1 + i;
 	  contextLineWidth.beginPath();
-	  contextLineWidth.moveTo(5+i*14,5);
-	  contextLineWidth.lineTo(5+i*14,140);
+	  contextLineWidth.moveTo(5 + i * 14, 5);
+	  contextLineWidth.lineTo(5 + i * 14, 140);
 	  contextLineWidth.stroke();
+	}
+	const canvasLineCap = document.getElementById('lineCap')
+	const contextLineCap = canvasLineCap.getContext('2d')
+	const lineCap = ['butt', 'round', 'square']
+	// 创建路径
+	contextLineCap.strokeStyle = '#09f';
+	contextLineCap.beginPath();
+	contextLineCap.moveTo(10, 10);
+	contextLineCap.lineTo(140, 10);
+	contextLineCap.moveTo(10, 140);
+	contextLineCap.lineTo(140, 140);
+	contextLineCap.stroke();
+	// 画线条
+	contextLineCap.strokeStyle = 'black';
+	for (let i = 0; i < lineCap.length; i++) {
+	  contextLineCap.lineWidth = 15;
+	  //属性 lineCap 的值决定了线段端点显示的样子。它可以为下面的三种的其中之一：butt，round 和 square。默认是 butt。
+	  contextLineCap.lineCap = lineCap[i];
+	  contextLineCap.beginPath();
+	  contextLineCap.moveTo(25 + i * 50, 10);
+	  contextLineCap.lineTo(25 + i * 50, 140);
+	  contextLineCap.stroke();
 	}
   }
 </script>
