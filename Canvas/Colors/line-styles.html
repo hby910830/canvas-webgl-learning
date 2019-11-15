@@ -17,6 +17,8 @@ lineDashOffset = value 设置虚线样式的起始偏移量。
 <body onload="draw()">
 <canvas id="lineWidth" width="150" height="150"></canvas>
 <canvas id="lineCap" width="150" height="150"></canvas>
+<canvas id="lineJoin" width="150" height="150"></canvas>
+<canvas id="lineDash" width="150" height="150"></canvas>
 <script>
   const draw = () => {
 	const canvasLineWidth = document.getElementById('lineWidth')
@@ -45,15 +47,57 @@ lineDashOffset = value 设置虚线样式的起始偏移量。
 	for (let i = 0; i < lineCap.length; i++) {
 	  contextLineCap.lineWidth = 15;
 	  // 属性 lineCap 的值决定了线段端点显示的样子。它可以为下面的三种的其中之一：
-      // butt 与辅助线齐平
-      // round 端点处加上了半径为一半线宽的半圆
-      // square 端点处加上了等宽且高度为一半线宽的方块。
-      // 默认是 butt。
+	  // butt 与辅助线齐平
+	  // round 端点处加上了半径为一半线宽的半圆
+	  // square 端点处加上了等宽且高度为一半线宽的方块。
+	  // 默认是 butt。
 	  contextLineCap.lineCap = lineCap[i];
 	  contextLineCap.beginPath();
 	  contextLineCap.moveTo(25 + i * 50, 10);
 	  contextLineCap.lineTo(25 + i * 50, 140);
 	  contextLineCap.stroke();
+	}
+	const canvasLineJoin = document.getElementById('lineJoin')
+	const contextLineJoin = canvasLineJoin.getContext('2d')
+	const lineJoin = ['round', 'bevel', 'miter'];
+	contextLineJoin.lineWidth = 10;
+	for (let i = 0; i < lineJoin.length; i++) {
+	  //lineJoin 的属性值决定了图形中两线段连接处所显示的样子。它可以是这三种之一：
+	  // round  边角处被磨圆了，圆的半径等于线宽
+	  // bevel
+	  // miter  线段会在连接处外侧延伸直至交于一点，延伸效果受到miterLimit属性的制约。
+	  // 默认是 miter。
+	  contextLineJoin.lineJoin = lineJoin[i];
+	  contextLineJoin.beginPath();
+	  contextLineJoin.moveTo(-5, 5 + i * 40);
+	  contextLineJoin.lineTo(35, 45 + i * 40);
+	  contextLineJoin.lineTo(75, 5 + i * 40);
+	  contextLineJoin.lineTo(115, 45 + i * 40);
+	  contextLineJoin.lineTo(155, 5 + i * 40);
+	  contextLineJoin.stroke();
+
+
+	  const canvasLineDash = document.getElementById('lineDash')
+	  const contextLineDash = canvasLineDash.getContext('2d')
+	  let offset = 0
+	  const painting = () => {
+		//用 setLineDash 方法和 lineDashOffset 属性来制定虚线样式.
+		contextLineDash.clearRect(0, 0, canvasLineDash.width, canvasLineDash.height);
+		// setLineDash 方法接受一个数组，来指定线段与间隙的交替；
+		contextLineDash.setLineDash([4, 2]);
+		// lineDashOffset 属性设置起始偏移量.
+		contextLineDash.lineDashOffset = -offset;
+		contextLineDash.strokeRect(10, 10, 100, 100);
+      }
+	  function march() {
+		offset++;
+		if (offset > 16) {
+		  offset = 0;
+		}
+		painting();
+		setTimeout(march, 80);
+	  }
+	  march();
 	}
   }
 </script>
