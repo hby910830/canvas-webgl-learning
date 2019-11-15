@@ -44,7 +44,11 @@ lineDashOffset = value 设置虚线样式的起始偏移量。
 	contextLineCap.strokeStyle = 'black';
 	for (let i = 0; i < lineCap.length; i++) {
 	  contextLineCap.lineWidth = 15;
-	  //属性 lineCap 的值决定了线段端点显示的样子。它可以为下面的三种的其中之一：butt，round 和 square。默认是 butt。
+	  // 属性 lineCap 的值决定了线段端点显示的样子。它可以为下面的三种的其中之一：
+      // butt 与辅助线齐平
+      // round 端点处加上了半径为一半线宽的半圆
+      // square 端点处加上了等宽且高度为一半线宽的方块。
+      // 默认是 butt。
 	  contextLineCap.lineCap = lineCap[i];
 	  contextLineCap.beginPath();
 	  contextLineCap.moveTo(25 + i * 50, 10);
