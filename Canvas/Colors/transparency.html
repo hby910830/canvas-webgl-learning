@@ -1,0 +1,73 @@
+<!--
+除了可以绘制实色图形，我们还可以用 canvas 来绘制半透明的图形。
+通过设置 globalAlpha 属性或者使用一个半透明颜色作为轮廓或填充的样式。
+globalAlpha 属性在需要绘制大量拥有相同透明度的图形时候相当高效。
+不过， 因为 strokeStyle 和 fillStyle 属性接受符合 CSS 3 规范的颜色值，
+那我们可以用下面的写法来设置具有透明度的颜色:
+// 指定透明颜色，用于描边和填充样式
+context.strokeStyle = "rgba(255,0,0,0.5)";
+context.fillStyle = "rgba(255,0,0,0.5)";
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Transparency</title>
+  <style type="text/css">
+    canvas { border: 1px solid black; }
+  </style>
+</head>
+<body onload="draw()">
+<canvas id="globalAlpha" width="150" height="150"></canvas>
+<canvas id="rgba" width="150" height="150"></canvas>
+<script>
+  const draw = () => {
+	/*用四色格作为背景，设置 globalAlpha 为 0.2 后，在上面画一系列半径递增的半透明圆。
+    * 最终结果是一个径向渐变效果。圆叠加得越更多，原先所画的圆的透明度会越低。
+    * 通过增加循环次数，画更多的圆，从中心到边缘部分，背景图会呈现逐渐消失的效果。
+    */
+	const canvasGlobalAlpha = document.getElementById('globalAlpha')
+	let contextGlobalAlpha = canvasGlobalAlpha.getContext('2d')
+	// 画背景
+	contextGlobalAlpha.fillStyle = '#FD0';
+	contextGlobalAlpha.fillRect(0, 0, 75, 75);
+	contextGlobalAlpha.fillStyle = '#6C0';
+	contextGlobalAlpha.fillRect(75, 0, 75, 75);
+	contextGlobalAlpha.fillStyle = '#09F';
+	contextGlobalAlpha.fillRect(0, 75, 75, 75);
+	contextGlobalAlpha.fillStyle = '#F30';
+	contextGlobalAlpha.fillRect(75, 75, 75, 75);
+	contextGlobalAlpha.fillStyle = '#FFF';
+	// 设置透明度值
+	contextGlobalAlpha.globalAlpha = .2
+	// 画半透明圆
+	for (let i = 0; i < 7; i++) {
+	  contextGlobalAlpha.beginPath();
+	  contextGlobalAlpha.arc(75, 75, 10 + 10 * i, 0, Math.PI * 2, true);
+	  contextGlobalAlpha.fill();
+	}
+	/*和上面那个类似，不过不是画圆，而是画矩形。
+    * 这里还可以看出，rgba() 可以分别设置轮廓和填充样式，因而具有更好的可操作性和使用灵活性。
+    */
+	const canvasRgba = document.getElementById('rgba')
+	let contextRgba = canvasRgba.getContext('2d')
+    // 画背景
+	contextRgba.fillStyle = 'rgb(255,221,0)';
+	contextRgba.fillRect(0, 0, 150, 37.5);
+	contextRgba.fillStyle = 'rgb(102,204,0)';
+	contextRgba.fillRect(0, 37.5, 150, 37.5);
+	contextRgba.fillStyle = 'rgb(0,153,255)';
+	contextRgba.fillRect(0, 75, 150, 37.5);
+	contextRgba.fillStyle = 'rgb(255,51,0)';
+	contextRgba.fillRect(0, 112.5, 150, 37.5);
+	// 画半透明矩形
+	for (let i = 0; i < 10; i++) {
+	  contextRgba.fillStyle = 'rgba(255,255,255,' + (i + 1) / 10 + ')';
+	  for (let j = 0; j < 4; j++) {
+		contextRgba.fillRect(5 + i * 14, 5 + j * 37.5, 14, 27.5)
+	  }
+	}
+  }
+</script>
+</body>
+</html>
