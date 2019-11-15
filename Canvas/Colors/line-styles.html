@@ -1,0 +1,35 @@
+<!--线型 Line styles:
+可以通过一系列属性来设置线的样式。
+lineWidth = value 设置线条宽度。
+lineCap = type 设置线条末端样式。
+lineJoin = type 设定线条与线条间接合处的样式。
+miterLimit = value 限制当两条线相交时交接处最大长度；所谓交接处长度（斜接长度）是指线条交接处内角顶点到外角顶点的长度。
+getLineDash() 返回一个包含当前虚线样式，长度为非负偶数的数组。
+setLineDash(segments) 设置当前虚线样式。
+lineDashOffset = value 设置虚线样式的起始偏移量。
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Line styles</title>
+</head>
+<body onload="draw()">
+<canvas id="lineWidth" width="150" height="150"></canvas>
+<canvas id="lineCap" width="150" height="150"></canvas>
+<script>
+  const draw = () => {
+    const canvasLineWidth = document.getElementById('lineWidth')
+    const contextLineWidth = canvasLineWidth.getContext('2d')
+	for (let i = 0; i < 10; i++){
+	  //这个属性设置当前绘线的粗细。属性值必须为正数。默认值是1.0。
+	  contextLineWidth.lineWidth = 1+i;
+	  contextLineWidth.beginPath();
+	  contextLineWidth.moveTo(5+i*14,5);
+	  contextLineWidth.lineTo(5+i*14,140);
+	  contextLineWidth.stroke();
+	}
+  }
+</script>
+</body>
+</html>
