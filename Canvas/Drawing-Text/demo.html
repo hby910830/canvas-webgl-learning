@@ -1,0 +1,37 @@
+<!--绘制文本
+canvas 提供了两种方法来渲染文本:
+fillText(text, x, y [, maxWidth])
+在指定的(x,y)位置填充指定的文本，绘制的最大宽度是可选的.
+strokeText(text, x, y [, maxWidth])
+在指定的(x,y)位置绘制文本边框，绘制的最大宽度是可选的.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <title>Drawing-Text</title>
+ <style>
+	canvas {
+	 border: 1px solid #333;
+	}
+ </style>
+</head>
+<body onload="draw()">
+<canvas id="draw-fillText" width="400" height="150"></canvas>
+<canvas id="draw-strokeText" width="400" height="150"></canvas>
+
+<script>
+	const draw = () => {
+		const canvasFillText = document.getElementById('draw-fillText')
+		let contextFillText = canvasFillText.getContext('2d')
+		contextFillText.font = '48px serif'
+		contextFillText.fillText('Hello World', 10, 50)
+
+		// const canvasStrokeText = document.getElementById('draw-strokeText')
+		// let contextStrokeText = canvasStrokeText.getContext('2d')
+		// contextStrokeText.font = '48px serif'
+		// contextStrokeText.strokeText('Hello World', 10, 50)
+	}
+</script>
+</body>
+</html>
