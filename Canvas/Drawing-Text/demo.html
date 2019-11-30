@@ -45,6 +45,16 @@ direction = value 文本方向。可能的值包括：ltr, rtl, inherit。默认
     contextTextBaseline.font = '48px serif'
     contextTextBaseline.textBaseline = 'hanging'
     contextTextBaseline.strokeText('Hello World', 10, 50)
+    console.log(contextTextBaseline.measureText('Hello World'))
+    // measureText()将返回一个 TextMetrics对象的宽度、所在像素，这些体现文本特性的属性。
+    /* TextMetrics {
+        width: 242.06393432617188,
+        actualBoundingBoxLeft: -1.0080000162124634,
+        actualBoundingBoxRight: 240.9119415283203,
+        actualBoundingBoxAscent: -6.239997863769531,
+        actualBoundingBoxDescent: 40.79999923706055
+        }
+    * */
 	}
 </script>
 </body>
